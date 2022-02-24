@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,10 +46,10 @@ public class SingletonWithPrototypeTest1 {
     static class ClientBean{
 
         @Autowired
-        private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+        private Provider<PrototypeBean> prototypeBeanProvider;
 
         public int logic(){
-            PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
             //스프링컨테이너에서 해당빈 찾아주는 대리자 역할(Dependency Lookup 기능) 이때 프로토타입이면 객체가 새로 생성되는 것이고
 
             prototypeBean.addCount();
